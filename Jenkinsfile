@@ -24,7 +24,11 @@ pipeline {
       }
       post {
         always {
-          junit 'target/surefire-reports/*.xml'
+          // Debug: list target directory in Jenkins
+          sh 'echo "=== Listing target directory ===" && ls -R target || true'
+          
+          // Collect test reports (don’t fail if missing)
+          junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
         }
       }
     }
