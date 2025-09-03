@@ -6,7 +6,6 @@ pipeline {
   }
   options {
     timestamps()
-    ansiColor('xterm')
   }
   stages {
     stage('Checkout') {
@@ -20,6 +19,7 @@ pipeline {
     }
     stage('Build & Test') {
       steps {
+      ansiColor('xterm'){
         sh 'mvn -v'
         sh 'mvn -B clean test package'
       }
@@ -28,7 +28,6 @@ pipeline {
           junit 'target/surefire-reports/*.xml'
         }
       }
-    }
     stage('Package Info') {
       steps {
         sh 'echo "Artifacts in target/:" && ls -la target || true'
