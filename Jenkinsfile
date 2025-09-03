@@ -17,11 +17,9 @@ pipeline {
     }
     stage('Build & Test') {
       steps {
-        ansiColor('xterm') {
           sh 'mvn -v'
           sh 'mvn -B clean test package'
         }
-      }
       post {
         always {
           // Debug: list target directory in Jenkins
